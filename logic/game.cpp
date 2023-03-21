@@ -3,7 +3,6 @@
 using namespace std;
 void draw(vector<vector<int>> a){
     vector<vector<char>> board(3,vector<char>(3,'_'));
-
     for(int i=0;i<3;i++){
         for(int j=0;j<3;j++){
             if(a[i][j]==1){
@@ -17,7 +16,6 @@ void draw(vector<vector<int>> a){
             }
         }
     }
-
     for(auto i:board){
         for(auto j:i){
             cout<<j<<' ';
@@ -129,7 +127,6 @@ void play(){
     do{
         int x1,x2;
         int y1,y2;
-
         cout<<"Player 1\n";
         cout<<"Enter the Position where you want to enter your choice\n";
         cin>>x1>>y1;

@@ -1,0 +1,15 @@
+body{
+    text-align: center;
+}
+#board{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    width: 350px;
+    margin: auto;
+}
+#board .cell{
+    height: 6rem;
+    width: 6rem;
+    font-size: 3em;
+}
