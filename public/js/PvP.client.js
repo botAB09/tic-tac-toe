@@ -13,7 +13,7 @@ function makeMove(){
      * changes symbol 'X' to 'O' , else 
      * symbol 'O' to 'X'
      */
-    symbol=='X'?symbol='O':symbol='X';  
+    symbol = symbol=='X' ? 'O' : 'X';  
 }
 
 /**
@@ -46,13 +46,27 @@ function checkBoard(symbol){
         obj.a2+obj.a5+obj.a8,
         obj.a3+obj.a6+obj.a9
     ];
-    for(let i=0; i<winCombination.length;i++){
-        if(winCombination[i]==matches[0] || winCombination[i]==matches[1]){
+    /**
+     * check for win
+     */
+    for(const element of winCombination){
+        if(element==matches[0] || element==matches[1]){
             alert(`Winner is ${symbol}`);
             console.log(`Winner is ${symbol}`);
-            $('.cell').attr('disabled', true);
+            $('.cell').attr('disabled', true);     
+            return ;           
+        };
+    }
+    /**
+     * check for draw
+     */
+    for(const i in obj){
+        if(obj[i]==""){
+            console.log("Empty Space !");
+            return ;
         }
     }
+    alert("Draw!");
 }
 
 $(document).ready(function () {
