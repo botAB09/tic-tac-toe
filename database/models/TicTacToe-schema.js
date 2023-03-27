@@ -1,6 +1,10 @@
 const
 {dbname} = require('../../config/env-config');
 
+/**
+ * 
+ * @param {object} client Created Tic Tac Toe Schema
+ */
 const createGameSchema = async(client)=>{
     await client.db(dbname).createCollection("gameUsers",{
         validator: {

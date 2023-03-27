@@ -7,7 +7,7 @@ Mongo = require('./utility/mongo-utility'),
 {createServer} = require('http'),
 {Server} = require('socket.io'),
 httpServer = createServer(app),
-MongoConnection = require('./TicTacToe.Database')
+MongoConnection = require('./database/utility-functions/TicTacToe.database.connect')
 
 
 app.use(bodyParser.urlencoded({extended: true}));
