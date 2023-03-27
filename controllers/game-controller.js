@@ -2,7 +2,6 @@ const path = require('path');
 
 /**
  * 
- * @param {object} req 
  * @param {object} res sends the game.html page to the client
  */
 module.exports = async function (req,res){
