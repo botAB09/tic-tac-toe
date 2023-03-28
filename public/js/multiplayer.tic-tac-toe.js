@@ -85,6 +85,10 @@ socket.on("move.made",data=>{
     }
     $('.cell').attr('disabled', true);
 })
+socket.on("opponent.left",()=>{
+    $("#turn").text("Your Opponent Left , reload for New Game!");
+    $('.cell').attr('disabled', true);  
+})
 $(document).ready(function () {
     $('.cell').attr('disabled', true);     
     $(".cell").on('click',makeMove);

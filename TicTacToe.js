@@ -2,16 +2,16 @@ const
 express = require('express'),
 {createServer} = require('http'),
 {Server} = require('socket.io'),
-
-app = express(),
-httpServer = createServer(app),
-io = new Server(httpServer),
-
 routes = require('./routes/routes'),
 bodyParser = require('body-parser'),
 {port} = require('./config/env-config'),
 MongoConnection = require('./database/utility-functions/TicTacToe.database.connect'),
-player = {}
+player = {},
+
+app = express(),
+httpServer = createServer(app),
+io = new Server(httpServer);
+
 let opponent;
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -24,6 +24,7 @@ httpServer.listen(port, async()=>{
 });
 
 function createGame(socket){
+    console.log(opponent);
     player[socket.id] = {
         symbol : 'X',
         opponent : opponent,
@@ -62,6 +63,13 @@ io.on("connection",socket=>{
         socket.emit('move.made',data);
         getOpponent(socket).emit('move.made',data);
     })
+    socket.on("disconnect",data=>{
+        console.log(data);
+        opponent = null;
+        if(getOpponent(socket)){
+            getOpponent(socket).emit('opponent.left');
+        }
+    });
 })
 
 
