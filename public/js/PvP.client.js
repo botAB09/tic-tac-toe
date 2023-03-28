@@ -13,7 +13,7 @@ function makeMove(){
      * changes symbol 'X' to 'O' , else 
      * symbol 'O' to 'X'
      */
-    symbol = symbol=='X' ? 'O' : 'X';  
+    symbol = symbol==='X' ? 'O' : 'X';  
 }
 
 /**
@@ -50,7 +50,7 @@ function checkBoard(symbol){
      * check for win
      */
     for(const element of winCombination){
-        if(element==matches[0] || element==matches[1]){
+        if(element===matches[0] || element===matches[1]){
             alert(`Winner is ${symbol}`);
             console.log(`Winner is ${symbol}`);
             $('.cell').attr('disabled', true);     
@@ -61,7 +61,7 @@ function checkBoard(symbol){
      * check for draw
      */
     for(const i in obj){
-        if(obj[i]==""){
+        if(obj[i]===""){
             console.log("Empty Space !");
             return ;
         }
