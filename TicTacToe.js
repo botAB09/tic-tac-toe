@@ -7,7 +7,6 @@ bodyParser = require('body-parser'),
 {port} = require('./config/env-config'),
 MongoConnection = require('./database/utility-functions/TicTacToe.database.connect'),
 {socketHandler} = require('./utility/socket-utility'),
-// socketUtility = require('./utility/socket-utility'),
 app = express(),
 httpServer = createServer(app),
 io = new Server(httpServer);
