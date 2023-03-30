@@ -58,7 +58,16 @@ function checkBoard(){
     }
     return false;
 }
-
+function checkDraw(){
+    const obj = getBoardState();
+    const val = Object.values(obj);
+    for(const element of val){
+        if(element === ""){
+            return false;
+        }
+    }
+    return true;
+}
 socket.on("connect", () => {
     console.log(socket.id);
 });
@@ -71,7 +80,11 @@ socket.on("game.begin",data=>{
 socket.on("move.made",data=>{
     $("#"+data.position).text(data.symbol);
     turn = (data.symbol !== symbol);
-    console.log(checkBoard());
+    if(checkDraw()){
+        $("#turn").text("Draw!... reload for New Game!");
+        $('.cell').attr('disabled', true);
+        return ;
+    }
     if(!checkBoard()){
         renderTurnMessage();
         return ;
@@ -81,7 +94,6 @@ socket.on("move.made",data=>{
     }
     else{
         $("#turn").text("You Win!");
-
     }
     $('.cell').attr('disabled', true);
 })

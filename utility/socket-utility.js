@@ -1,6 +1,5 @@
 let opponent;
 const player = {}
-
 function createGame(socket){
     console.log(opponent);
     player[socket.id] = {
@@ -41,7 +40,6 @@ function socketHandler(socket){
     })
     socket.on("disconnect",data=>{
         console.log(data);
-        opponent = null;
         if(getOpponent(socket)){
             getOpponent(socket).emit('opponent.left');
         }
