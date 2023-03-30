@@ -12,7 +12,8 @@ class MongoUtil {
      */
     constructor (){
         this.client = new MongoClient(url);
-        //createUserSchema(this.client);
+
+        // /createUserSchema(this.client);
     }
     /**
      * Initialize db and collection parameter of To Do List database
@@ -22,10 +23,14 @@ class MongoUtil {
             await this.client.connect();
             this.db = this.client.db(dbname);
             this.collection = this.db.collection(collection);
+            const collectionExists = await this.db.listCollections().toArray();
+            if(!collectionExists.length){
+                createUserSchema(this.client);
+            }
         }
         catch(err){
             throw new Error(`Error Occured in MongoUtil module while connecting \n ${err} `);
         }
     }
-};
-module.exports = new MongoUtil();    
+}
+module.exports = new MongoUtil(); 

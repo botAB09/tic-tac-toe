@@ -19,5 +19,5 @@ class TicTacToe{
             throw new Error('Error Occured in view function Tic Tac Toe.db.js',err);
         }
     }
-};
+}
 module.exports = new TicTacToe();
