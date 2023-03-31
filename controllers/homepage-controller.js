@@ -2,8 +2,7 @@ const path = require('path');
 
 /**
  * 
- * @param {*} req 
- * @param {object} res send the home page of Tic Tac Toe game to the client
+ * @param {object}  res retrieves Homepage file and returns the Home Page file to the client 
  */
 module.exports = async function(req,res){
     res.sendFile(path.join(__dirname,'..','public','TicTacToe.homepage.html'),function(err){

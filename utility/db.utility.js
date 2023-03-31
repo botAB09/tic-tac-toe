@@ -5,7 +5,7 @@ createUserSchema = require('../database/models/TicTacToe-schema');
 //TODO change comments ,justify logic
 //TODO use authentication mongo
 
-class MongoUtil {
+class DbUtil {
     //constructor method : creates a new instance of database
     constructor (){
         this.client = new MongoClient(url);
@@ -39,4 +39,4 @@ class MongoUtil {
         }
     }
 }
-module.exports = new MongoUtil();
+module.exports = new DbUtil();
