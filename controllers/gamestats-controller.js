@@ -3,8 +3,9 @@ db = require('../utility/db.utility');
 
 /**
  * 
- * @param {object} req contains username string to find from Tic Tac Toe Database
- * @param {object} res sends the gamestatics data to the client
+ * @param {object} req request object contains username "string" 
+ * @param {object} res sends gamestatistics data of the respective username
+ *                                 
  */
 module.exports = async function(req,res){
     //fetch game data using the username   
