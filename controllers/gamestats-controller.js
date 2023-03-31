@@ -1,5 +1,5 @@
 const 
-TicTacToe = require('../database/utility-functions/TicTacToe.database');
+db = require('../utility/db.utility');
 
 /**
  * 
@@ -9,7 +9,6 @@ TicTacToe = require('../database/utility-functions/TicTacToe.database');
 module.exports = async function(req,res){
     //fetch game data using the username   
     const username = req.body;
-    const gamestatistics = await TicTacToe.find(username['username']);
-    console.log(gamestatistics);
+    const gamestatistics = await db.find(username['username']);
     res.send(gamestatistics);
 }

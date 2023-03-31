@@ -1,5 +1,6 @@
 let opponent;
 const player = {}
+//TODO net library to create listeners , alternate to socket 
 function createGame(socket){
     console.log(opponent);
     player[socket.id] = {
@@ -34,6 +35,7 @@ function socketHandler(socket){
         })
     }
     socket.on('player.move',data=>{
+        console.log(player);
         console.log("A move was made",data);
         socket.emit('move.made',data);
         getOpponent(socket).emit('move.made',data);

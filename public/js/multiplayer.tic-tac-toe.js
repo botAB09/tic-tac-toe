@@ -5,7 +5,8 @@ matches = ['XXX','OOO'];
 let
 turn = true,
 symbol;
-
+//TODO create a constants file , string literals 
+//TODO add logic to server side ....
 function renderTurnMessage(){
     if(!turn){
         $("#turn").text("Your Opponent's Turn");
@@ -16,7 +17,7 @@ function renderTurnMessage(){
         $('.cell').removeAttr('disabled');     
     }
 }
-function makeMove(e){
+function makeMove(){
     if(!turn || $(this).text().length){
         return ;
     }
@@ -37,7 +38,7 @@ function getBoardState(){
     });
     return obj;
 }
-
+//TODO dont use vague terms 
 function checkBoard(){
     const obj = getBoardState();
 

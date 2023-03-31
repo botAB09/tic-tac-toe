@@ -2,8 +2,12 @@ const
 {dbname} = require('../../config/env-config');
 
 /**
- * 
- * @param {object} client Created Tic Tac Toe Schema
+ *@param {object} client validates database schema and creates the rules for database with following properties 
+ * ---properties : 
+ *      -username  : "string"
+ *      -win : "int"
+ *      -loss : "int"
+ *      -draw : "int"
  */
 const createGameSchema = async(client)=>{
     await client.db(dbname).createCollection("gameUsers",{
