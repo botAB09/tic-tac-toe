@@ -14,7 +14,7 @@ If the game state cannot be determined and the whole board is marked then it is 
 3. run the following commands in your terminal 
 ```
     npm install
-    node TicTacToe ( main application )
+    node TicTacToe 
 ```
 
 
