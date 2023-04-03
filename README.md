@@ -18,8 +18,4 @@ If the game state cannot be determined and the whole board is marked then it is 
 ```
 
 
-********************************************************************************************************************************
-/controllers 
-
-
 
