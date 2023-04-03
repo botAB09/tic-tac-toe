@@ -4,20 +4,20 @@ express = require('express'),
 {Server} = require('socket.io'),
 routes = require('./routes/routes'),
 bodyParser = require('body-parser'),
-{port} = require('./config/env-config'),
 DbUtil = require('./utility/db.utility'),
-{socketHandler} = require('./utility/websocket.utility'),
+socketUtil = require('./utility/websocket.utility'),
+
 app = express(),
 httpServer = createServer(app),
 io = new Server(httpServer)
-
+console.log(process.env.TEST_var);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 app.use(routes);
-io.on("connection",socketHandler);
+io.on("connection",socketUtil.socketHandler);
 
-httpServer.listen(port, async()=>{
-    console.log(`Listening on port ${port}`);
+httpServer.listen(process.env.port, async()=>{
+    console.log(`Listening on port ${process.env.port}`);
     try{
         await DbUtil.connect();
         console.log("Connected to the Tic Tac Toe Database");

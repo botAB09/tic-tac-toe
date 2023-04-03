@@ -1,6 +1,3 @@
-const
-{dbname} = require('../../config/env-config');
-
 /**
  *@param {object} client validates database schema and creates the rules for database with following properties 
  * ---properties : 
@@ -10,7 +7,7 @@ const
  *      -draw : "int"
  */
 const createGameSchema = async(client)=>{
-    await client.db(dbname).createCollection("gameUsers",{
+    await client.db(process.env.dbname).createCollection("gameUsers",{
         validator: {
             $jsonSchema: {
                 bsonType: "object",

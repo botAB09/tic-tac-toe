@@ -18,6 +18,7 @@ function renderTurnMessage(){
     }
 }
 function makeMove(){
+    console.log(1);
     if(!turn || $(this).text().length){
         return ;
     }
