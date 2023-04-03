@@ -11,9 +11,11 @@ If the game state cannot be determined and the whole board is marked then it is 
 
 1. git clone the project into your local machine 
 2. open the folder/directory in VScode or any other IDE
-3. run the following commands in your terminal :
-    -- npm install\ 
-    -- node TicTacToe ( main application )\
+3. run the following commands in your terminal 
+```
+    npm install
+    node TicTacToe ( main application )
+```
 
 
 ********************************************************************************************************************************
