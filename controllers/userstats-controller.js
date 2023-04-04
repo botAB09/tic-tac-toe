@@ -10,6 +10,6 @@ db = require('../utility/db.utility');
 module.exports = async function(req,res){
     //fetch game data using the username   
     const username = req.body;
-    const gamestatistics = await db.find(username['username']);
+    const gamestatistics = await db.getUserStats(username['username']);
     res.send(gamestatistics);
 }
