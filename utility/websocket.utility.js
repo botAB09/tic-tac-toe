@@ -1,3 +1,5 @@
+const db = require('./db.utility');
+
 class SOCKETUTIL{
     static opponent;
     static player = {};
@@ -6,7 +8,8 @@ class SOCKETUTIL{
         SOCKETUTIL.player[socket.id] = {
             symbol : 'X',
             opponent : SOCKETUTIL.opponent,
-            socket : socket
+            socket : socket,
+            username : ''
         }
         if(SOCKETUTIL.opponent){
             SOCKETUTIL.player[socket.id].symbol = 'O';
@@ -34,11 +37,17 @@ class SOCKETUTIL{
                 symbol : SOCKETUTIL.player[SOCKETUTIL.getOpponent(socket).id].symbol
             })
         }
-        socket.on('player.move',data=>{
-            console.log(SOCKETUTIL.player);
-            console.log("A move was made",data);
-            socket.emit('move.made',data);
-            SOCKETUTIL.getOpponent(socket).emit('move.made',data);
+        socket.on('player.move',player_postition=>{
+            console.log(SOCKETUTIL.player[socket.id]);
+            console.log("A move was made",player_postition);
+            socket.emit('move.made',player_postition);
+            SOCKETUTIL.getOpponent(socket).emit('move.made',player_postition);
+        })
+        socket.on("username",username=>{
+            SOCKETUTIL.player[socket.id].username = username;
+        })
+        socket.on("game.end",gameState=>{
+            db.addUser(SOCKETUTIL.player[socket.id],gameState);
         })
         socket.on("disconnect",data=>{
             console.log(data);

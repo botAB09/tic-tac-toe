@@ -2,8 +2,6 @@ const
 {MongoClient} = require('mongodb'),
 createUserSchema = require('../database/models/db.schema');
 
-//TODO use authentication mongo
-
 class DbUtil {
     //constructor method : creates a new instance of database
     constructor (){
@@ -25,15 +23,71 @@ class DbUtil {
         }
     }
 
-    //find method to find and return the gamestatistics of respective username
-    async find(username){
+    //method to find and return the gamestatistics of respective username
+    async getUserStats(username){
         try{
             const gamestatistics = await this.collection.find({username: username},{projection:{_id:0}}).toArray();
             console.log(gamestatistics);
             return gamestatistics;
         }
         catch(err){
-            throw new Error('Error Occured in find function db.js',err);
+            throw new Error('Error Occured in getUSerStats function db.js',err);
+        }
+    }
+    //insert the wins, loss , draws of the user with the corresponding  username into the database ( following db.schema validation )
+    async addUser(userData,gameState){
+        try{
+            const username = userData.username;
+
+            //if the username does not exists then it will insert it with the default values to 0 .
+            await this.collection.updateOne(
+                {"username":username},
+                {
+                    $setOnInsert: {
+                        Win: 0,
+                        Loss: 0,
+                        Draw: 0
+                    }
+                },
+                {upsert:true}
+            )
+
+            if(gameState === "Win"){
+                await this.collection.updateOne(
+                    {"username":username},
+                    {
+                        $inc:{
+                            Win:1
+                        }
+                    },
+                    {upsert:true}
+                )
+            }
+            else if(gameState === "Loss"){
+                await this.collection.updateOne(
+                    {"username":username},
+                    {
+                        $inc:{
+                            Loss:1
+                        }
+                    },
+                    {upsert:true}
+                )
+            }
+            else{
+                await this.collection.updateOne(
+                    {"username":username},
+                    {
+                        $inc:{
+                            Draw:1
+                        }
+                    },
+                    {upsert:true}
+                )
+            }
+        }
+        catch(err){
+           console.log(err);
         }
     }
 }
