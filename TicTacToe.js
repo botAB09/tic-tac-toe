@@ -10,7 +10,7 @@ socketUtil = require('./utility/websocket.utility'),
 app = express(),
 httpServer = createServer(app),
 io = new Server(httpServer)
-console.log(process.env.TEST_var);
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 app.use(routes);
