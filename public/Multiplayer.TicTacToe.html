@@ -12,19 +12,26 @@
     <title>Tic Tac Toe</title>
 </head>
 <body>
-    <h1>Tic Tac Toe Game</h1>
-    <h2 id="turn">waiting for opponent .... </h2>
-    <div id="board">
-        <button id="a1" class="cell"></button>
-        <button id="a2" class="cell"></button>
-        <button id="a3" class="cell"></button>
-        <button id="a4" class="cell"></button>
-        <button id="a5" class="cell"></button>
-        <button id="a6" class="cell"></button>
-        <button id="a7" class="cell"></button>
-        <button id="a8" class="cell"></button>
-        <button id="a9" class="cell"></button>
+    <form action="" method="post">
+        <label for="username">Enter username</label>
+        <input type="text" name="username" id="username" required>
+        <input type="submit" value="Submit" id="submit.button">    
+    </form>
+    <div id="gameboard" style="display: none;">
+        <h1>Tic Tac Toe Game</h1>
+        <h2 id="turn">waiting for opponent .... </h2>
+        <div id="board">
+            <button id="a1" class="cell"></button>
+            <button id="a2" class="cell"></button>
+            <button id="a3" class="cell"></button>
+            <button id="a4" class="cell"></button>
+            <button id="a5" class="cell"></button>
+            <button id="a6" class="cell"></button>
+            <button id="a7" class="cell"></button>
+            <button id="a8" class="cell"></button>
+            <button id="a9" class="cell"></button>
+        </div>
+        <h3 id="symbol"></h3>
     </div>
-    <h3 id="symbol"></h3>
 </body>
 </html>

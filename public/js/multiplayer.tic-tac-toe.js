@@ -5,6 +5,7 @@ matches = ['XXX','OOO'];
 let
 turn = true,
 symbol;
+
 //TODO create a constants file , string literals 
 //TODO add logic to server side ....
 function renderTurnMessage(){
@@ -82,20 +83,23 @@ socket.on("game.begin",data=>{
 socket.on("move.made",data=>{
     $("#"+data.position).text(data.symbol);
     turn = (data.symbol !== symbol);
-    if(checkDraw()){
-        $("#turn").text("Draw!... reload for New Game!");
-        $('.cell').attr('disabled', true);
-        return ;
-    }
     if(!checkBoard()){
+        if(checkDraw()){
+            $("#turn").text("Draw!... reload for New Game!");
+            $('.cell').attr('disabled', true);
+            socket.emit("game.end","draw");
+            return ;
+        }
         renderTurnMessage();
         return ;
     }
     if(turn){
         $("#turn").text("You Loose!");
+        socket.emit("game.end","Loss");
     }
     else{
         $("#turn").text("You Win!");
+        socket.emit("game.end","Win");
     }
     $('.cell').attr('disabled', true);
 })
@@ -104,6 +108,13 @@ socket.on("opponent.left",()=>{
     $('.cell').attr('disabled', true);  
 })
 $(document).ready(function () {
+    $('form').on('submit',function fetchUser(e){
+        e.preventDefault();
+        $('form').css('display','none');
+        $('#gameboard').css('display','block');
+        const name = $("input[name='username']",this).val();
+        socket.emit("username",name);
+    });
     $('.cell').attr('disabled', true);     
     $(".cell").on('click',makeMove);
 });
