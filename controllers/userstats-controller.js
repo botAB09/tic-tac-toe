@@ -8,8 +8,12 @@ db = require('../utility/db.utility');
  *                                 
  */
 module.exports = async function(req,res){
-    //fetch game data using the username   
-    const username = req.body;
-    const gamestatistics = await db.getUserStats(username['username']);
-    res.send(gamestatistics);
+    try{
+        const username = req.body;
+        const gamestatistics = await db.getUserStats(username['username']);
+        res.send(gamestatistics);
+    }
+    catch(err){
+        console.log("Error: retrieving game statistics of the user",err);
+    }
 }
