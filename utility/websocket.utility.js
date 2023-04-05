@@ -1,7 +1,7 @@
 const db = require('./db.utility');
 /**
  * websocket utility class :
- *      -- creates the game board 
+ *      -- creates the game 
  *      -- manages socket and emits websocket event for each connected user
  */
 class SOCKETUTIL{
