@@ -4,6 +4,11 @@ const db = require('./db.utility');
  *      -- creates the game 
  *      -- manages socket and emits websocket event for each connected user
  */
+
+//TODO garbage collector in static function methods ; explain class bit more ; functional comments should be concise 
+//TODO net library , implementation of socket TCP socket ; TCP protocol , architecture , HTTPS , HTTP 
+//TODO packet loss ; spotify read !!
+//TODO 
 class SOCKETUTIL{
     static opponent;
     static player = {};
