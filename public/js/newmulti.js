@@ -1,3 +1,6 @@
+/**
+ * new updated featue to be merged with multiplaer.tac-tac-toe.js 
+ */
 const 
 socket = io();
 
@@ -17,10 +20,6 @@ function makeMove(){
     }
     socket.emit('player.move',this.id)    
 }
-/**
- * 
- * @returns object containing state of the board (where 'X' and 'O' are located)
- */
 function getBoardState(){
     const obj = {};
     $('.cell').each(function(index){

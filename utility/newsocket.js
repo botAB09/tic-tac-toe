@@ -1,3 +1,6 @@
+/**
+ * new updated featue to be merged with websocket.util.js 
+ */
 const db = require('./db.utility');
 
 class SOCKETUTIL{
@@ -93,7 +96,7 @@ class SOCKETUTIL{
                 });         
             }
         })
-        
+
         socket.on("game.state.check",gameBoard=>{
             console.log(gameBoard);
             console.log(socket.id);

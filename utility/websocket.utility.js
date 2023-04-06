@@ -1,3 +1,10 @@
+/**
+ * to be updated : 
+ * --new features for server side code 
+ * --adding new socket handler for client side game 
+ * --removing client side code from front end  
+ */
+
 const db = require('./db.utility');
 /**
  * websocket utility class :
