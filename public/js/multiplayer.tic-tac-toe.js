@@ -8,6 +8,7 @@ symbol;
 
 //TODO create a constants file , string literals 
 //TODO add logic to server side ....
+
 function renderTurnMessage(){
     if(!turn){
         $("#turn").text("Your Opponent's Turn");
@@ -19,7 +20,6 @@ function renderTurnMessage(){
     }
 }
 function makeMove(){
-    console.log(1);
     if(!turn || $(this).text().length){
         return ;
     }
