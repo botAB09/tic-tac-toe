@@ -5,7 +5,7 @@ express = require('express'),
 routes = require('./routes/routes'),
 bodyParser = require('body-parser'),
 DbUtil = require('./utility/db.utility'),
-socketUtil = require('./utility/newsocket'),
+socketUtil = require('./utility/websocket.utility'),
 
 app = express(),
 httpServer = createServer(app),
