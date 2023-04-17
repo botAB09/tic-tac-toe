@@ -1,6 +1,5 @@
 const 
 socket = io();
-
 //render turn message to the connected clients
 function renderTurnMessage(turn){
     if(!turn){
@@ -12,7 +11,6 @@ function renderTurnMessage(turn){
         $('.cell').removeAttr('disabled');     
     }
 }
-
 //emits socket event to server , when player makes a move
 function makeMove(){
     if($(this).text().length){
@@ -72,13 +70,6 @@ socket.on("opponent.left",()=>{
     $('.cell').attr('disabled', true);  
 })
 $(document).ready(function () {
-    $('form').on('submit',function fetchUser(e){
-        e.preventDefault();
-        $('form').css('display','none');
-        $('#gameboard').css('display','block');
-        const name = $("input[name='username']",this).val();
-        socket.emit("username",name);
-    });
     $('.cell').attr('disabled', true);     
     $(".cell").on('click',makeMove);
 });

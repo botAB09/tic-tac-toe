@@ -8,16 +8,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="./js/multiplayer.tic-tac-toe.js"></script>
-
     <title>Tic Tac Toe</title>
 </head>
 <body>
-    <form action="" method="post">
-        <label for="username">Enter username</label>
-        <input type="text" name="username" id="username" required>
-        <input type="submit" value="Submit" id="submit.button">    
-    </form>
-    <div id="gameboard" style="display: none;">
+    <div id="gameboard">
         <h1>Tic Tac Toe Game</h1>
         <h2 id="turn">waiting for opponent .... </h2>
         <div id="board">
