@@ -1,6 +1,9 @@
 const 
 {MongoClient} = require('mongodb'),
+bcrypt = require('bcrypt');
+saltRounds = 10;
 createUserSchema = require('../database/models/db.schema');
+
 /**
  *  db utility class usage ; 
  *      -- connecting to the database
@@ -44,7 +47,44 @@ class DbUtil {
             throw new Error('Error Occured in getUSerStats function db.js',err);
         }
     }
-    
+
+    async addUser(userData){
+        //check if user already exists ..
+        const hashedpassword = await new Promise((resolve,reject)=>{
+            bcrypt.genSalt(saltRounds, function(err, salt) {
+                bcrypt.hash(userData.password, salt, function(err, hash) {
+                    // Store hash in your password DB.
+                    if(err) reject(err);
+                    resolve(hash);
+                });
+            });  
+        })
+        await this.collection.insertOne({
+            username: userData.username,
+            email: userData.email,
+            password: hashedpassword,
+            Win: 0,
+            Loss: 0,
+            Draw: 0
+        })  
+    }
+
+    async checkUserAuth(userData){
+        try{
+            const existingUser = await this.collection.find({
+                username: userData.username
+            }).limit(1).toArray();
+            if(existingUser.length){
+                const match = await bcrypt.compare(userData.password, existingUser[0].password);
+                return ( match )
+            }
+            return false;
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+      
    /**
     * 
     * @param {object} userData player object 
@@ -57,24 +97,9 @@ class DbUtil {
     * @param {string} gameState the end result of the game board for each user , whether user won , lost or drew the game 
     * Updates the database with username and corresponding game state 
     */
-
-    async addUser(userData,gameState){
+    async updateUserScore(userData,gameState){
         try{
-            const username = userData.username;
-
-            //if the username does not exists then it will insert it with the default values to 0 .
-            await this.collection.updateOne(
-                {"username":username},
-                {
-                    $setOnInsert: {
-                        Win: 0,
-                        Loss: 0,
-                        Draw: 0
-                    }
-                },
-                {upsert:true}
-            )
-            
+            const username = userData.username;            
             //if game state is "Win" then increment the Win field in db by +1;
             if(gameState === "Win"){
                 await this.collection.updateOne(
@@ -114,7 +139,7 @@ class DbUtil {
         }
         catch(err){
            console.log("Error: While updating records in the database",err);
-        }
+        }        
     }
 }
 module.exports = new DbUtil();

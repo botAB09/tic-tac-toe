@@ -18,6 +18,12 @@ const createGameSchema = async(client)=>{
                         bsonType: "string",
                         description: "username must be string and is required"
                     },
+                    email: {
+                        bsonType: "string"
+                    },
+                    password: {
+                        bsonType: "string"       
+                    },
                     Win: {
                         bsonType: "int",
                         minimum: 0,
