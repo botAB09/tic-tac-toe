@@ -37,11 +37,9 @@ class DbUtil {
    */
   async getUserStats(username) {
     try {
-      const gamestatistics = await this.collection
-        .find({ username: username }, { projection: { _id: 0 } })
+      return await this.collection
+        .find({ username }, { projection: { _id: 0 } })
         .toArray();
-      console.log(gamestatistics);
-      return gamestatistics;
     } catch (err) {
       throw new Error("Error Occured in getUSerStats function db.js", err);
     }
@@ -53,7 +51,9 @@ class DbUtil {
       bcrypt.genSalt(saltRounds, function (err, salt) {
         bcrypt.hash(userData.password, salt, function (err, hash) {
           // Store hash in your password DB.
-          if (err) reject(err);
+          if (err) {
+            reject(err);
+          }
           resolve(hash);
         });
       });
@@ -67,21 +67,24 @@ class DbUtil {
       Draw: 0,
     });
   }
+  
+  async isExistingUser(username) {
+    return this.collection
+      .find({
+        username,
+      })
+      .limit(1)
+      .toArray();
+  }
 
   async checkUserAuth(userData) {
     try {
-      const existingUser = await this.collection
-        .find({
-          username: userData.username,
-        })
-        .limit(1)
-        .toArray();
+      const existingUser = await this.isExistingUser(userData.username);
       if (existingUser.length) {
-        const match = await bcrypt.compare(
+        return await bcrypt.compare(
           userData.password,
           existingUser[0].password
         );
-        return match;
       }
       return false;
     } catch (err) {
@@ -107,7 +110,7 @@ class DbUtil {
       //if game state is "Win" then increment the Win field in db by +1;
       if (gameState === "Win") {
         await this.collection.updateOne(
-          { username: username },
+          { username },
           {
             $inc: {
               Win: 1,
@@ -119,7 +122,7 @@ class DbUtil {
       //if game state is "Loss" then increment the Win field in db by +1;
       else if (gameState === "Loss") {
         await this.collection.updateOne(
-          { username: username },
+          { username },
           {
             $inc: {
               Loss: 1,
@@ -131,7 +134,7 @@ class DbUtil {
       //if game state is "Draw" then increment the Win field in db by +1;
       else {
         await this.collection.updateOne(
-          { username: username },
+          { username },
           {
             $inc: {
               Draw: 1,

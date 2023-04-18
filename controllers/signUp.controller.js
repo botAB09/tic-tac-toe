@@ -3,8 +3,8 @@ db = require('../utilities/db.utility');
 
 module.exports = async function(req, res) {
     try{  
-        const existUser = await db.checkUser(req.body);
-        if(existUser){
+        const existUser = await db.isExistingUser(req.body.username);
+        if(existUser.length){
             res.redirect('/');
         }
         else{

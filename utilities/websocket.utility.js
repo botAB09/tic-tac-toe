@@ -26,7 +26,6 @@ class SOCKETUTIL {
   static opponent;
   static player = {};
   static createGame(socket) {
-    console.log(SOCKETUTIL.opponent);
     SOCKETUTIL.player[socket.id] = {
       symbol: "X",
       opponent: SOCKETUTIL.opponent,
@@ -92,7 +91,6 @@ class SOCKETUTIL {
   }
 
   static socketHandler(socket) {
-    console.log(`A User Connected ${socket.id}`);
     SOCKETUTIL.createGame(socket);
     if (SOCKETUTIL.getOpponent(socket)) {
       socket.emit("game.begin", {
@@ -168,7 +166,6 @@ class SOCKETUTIL {
       db.updateUserScore(SOCKETUTIL.player[socket.id], gameState);
     });
     socket.on("disconnect", (disconn_data) => {
-      console.log(disconn_data);
       if (SOCKETUTIL.getOpponent(socket)) {
         SOCKETUTIL.getOpponent(socket).emit("opponent.left");
       }
