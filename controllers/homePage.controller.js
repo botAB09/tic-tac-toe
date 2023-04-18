@@ -12,7 +12,6 @@ module.exports = async function (req, res) {
       path.join(__dirname, "..", "public", "login.html"),
       function (err) {
         if (err) {
-          console.log("Home Page not Found !!");
           res.status(err.status).end();
         }
       }

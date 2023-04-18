@@ -11,7 +11,7 @@ const express = require("express"),
   io = new Server(httpServer);
 
 //1 hour timer for each cookie , cookie gets deleted after 1 hour of inactivity
-const cookieTimer = 60 * 1000;
+const cookieTimer = 60 * 60 * 1000;
 const sessionMiddleware = session({
   name: `TicTacToe`,
   secret: "some-secret-example",
@@ -25,13 +25,12 @@ const sessionMiddleware = session({
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
-io.use(function(socket, next) {
+io.use(function (socket, next) {
   sessionMiddleware(socket.request, socket.request.res || {}, next);
 });
 app.use(sessionMiddleware);
 io.on("connection", socketUtil.socketHandler);
 app.use(routes);
-
 
 httpServer.listen(process.env.port, async () => {
   console.log(`Listening on port ${process.env.port}`);

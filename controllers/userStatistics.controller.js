@@ -7,6 +7,7 @@ db = require('../utilities/db.utility');
  * @param {object} res sends gamestatistics data of the respective username
  *
  */
+//TODO change it json format 
 module.exports = async function(req,res){
     try{
         const username = req.session.username;
