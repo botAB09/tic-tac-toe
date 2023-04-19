@@ -1,0 +1,74 @@
+body {
+  text-align: center;
+}
+#board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  width: 350px;
+  margin: auto;
+}
+#board .cell {
+  height: 6rem;
+  width: 6rem;
+  font-size: 3em;
+}
+/* Add background color to the game board */
+#gameboard {
+  padding: 65px;
+  border-radius: 5px;
+}
+
+/* Add styles to the heading elements */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+/* Add styles to the game board cells */
+.cell {
+  background-color: #fff;
+  border: 2px solid #333;
+  color: #333;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Add hover styles to the game board cells */
+.cell:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Add active/focus styles to the game board cells */
+.cell:active,
+.cell:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #4caf50;
+}
+
+/* Add styles to the "waiting for opponent" message */
+#turn {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+/* Add styles to the "your symbol" message */
+#symbol {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #888;
+}
