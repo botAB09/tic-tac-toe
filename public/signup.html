@@ -4,27 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/doodle/doodle.css">
     <title>Document</title>
 </head>
-<body>
-    <div class="login-box">
-        <!-- <h2>Login</h2> -->
-        <form action="/signup" method="post">
-          <div class="user-box">
-            <input type="text" name="username" required="">
-            <label>Username</label>
-          </div>
-          <div class="user-box">
-            <input type="email" name="email" required="">
-            <label>Email</label>
-          </div>
-          <div class="user-box">
-            <input type="password" name="password" required="">
-            <label>Password</label>
-          </div>
-          <input type="submit" value="Register">
-        </form>
-      </div>    
+<body class="doodle">
+  <form action="/signup" method="post">
+    <fieldset>
+      <legend>Register</legend>
+      <p>
+        <label for="username">Username</label><br/>
+        <input type="text" name="username" required="">
+      </p>   
+      <p>
+        <label for="email">Email</label><br/>
+        <input type="text" name="email" required="">
+      </p>
+      <p>
+        <label for="password">Password</label></br>
+        <input type="password" name="password" required="">
+      </p>
+      <p>
+        <button type="submit" value="submit" >Register</button>
+      </p>  
+    </fieldset>
+  </form>    
 </body>
 </html>
