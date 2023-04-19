@@ -9,13 +9,5 @@ module.exports = async function (req, res) {
     res.redirect('/dashboard');
   } else {
     res.render('loginPage.ejs');
-    // res.sendFile(
-    //   path.join(__dirname, "..", "public", "loginPage.html"),
-    //   function (err) {
-    //     if (err) {
-    //       res.status(err.status).end();
-    //     }
-    //   }
-    // );
   }
 };
