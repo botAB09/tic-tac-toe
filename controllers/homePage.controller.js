@@ -8,13 +8,14 @@ module.exports = async function (req, res) {
   if (req.session.username) {
     res.redirect('/dashboard');
   } else {
-    res.sendFile(
-      path.join(__dirname, "..", "public", "login.html"),
-      function (err) {
-        if (err) {
-          res.status(err.status).end();
-        }
-      }
-    );
+    res.render('loginPage.ejs');
+    // res.sendFile(
+    //   path.join(__dirname, "..", "public", "loginPage.html"),
+    //   function (err) {
+    //     if (err) {
+    //       res.status(err.status).end();
+    //     }
+    //   }
+    // );
   }
 };

@@ -7,7 +7,7 @@
  *      -draw : "int"
  */
 const createGameSchema = async(client)=>{
-    await client.db(process.env.dbname).createCollection("gameUsers",{
+    await client.db(process.env.dbname).createCollection('gameUsers',{
         validator: {
             $jsonSchema: {
                 bsonType: "object",

@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb"),
-  bcrypt = require("bcrypt");
-saltRounds = 10;
-createUserSchema = require("../database/models/db.schema");
+  bcrypt = require("bcrypt"),
+  saltRounds = 10,
+  createUserSchema = require("../database/schema/db.schema");
 
 /**
  *  db utility class usage ;
@@ -67,7 +67,7 @@ class DbUtil {
       Draw: 0,
     });
   }
-  
+
   async isExistingUser(username) {
     return this.collection
       .find({
