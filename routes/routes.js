@@ -1,21 +1,22 @@
-const 
-express = require('express'),
-router = express.Router(),
-home = require('../controllers/homePage.controller'),
-gamestats = require('../controllers/userStatistics.controller'),
-signup = require('../controllers/register.controller'),
-login = require('../controllers/login.controller'),
-dashboard = require('../controllers/user.dashboard.controller'),
-requireAuth = require('../middleware/requireAuth'),
-pvp = require('../controllers/pvp.controller'),
-loadGame = require('../controllers/multiplayer.controller');
+const express = require("express"),
+  router = express.Router(),
+  home = require("../controllers/homepageController"),
+  { loginView, registerView } = require("../controllers/loginController"),
+  {
+    dashboardView,
+    multiplayerGame,
+    pvpGame,
+    fetchUserStatistics,
+  } = require("../controllers/dashboardController"),
+  requireAuth = require("../middlewares/requireAuth");
 
-router.get('/',home);
-router.post('/signup',signup);
-router.post('/login',login);
-router.get('/pvp',pvp);
-router.get('/multiplayer',requireAuth,loadGame);
-router.get('/dashboard',requireAuth,dashboard);
-router.post('/gamestats',requireAuth,gamestats);
+router.get("/", home);
+router.post("/signup", registerView);
+router.post("/login", loginView);
+
+router.get("/pvp", pvpGame);
+router.get("/multiplayer", requireAuth, multiplayerGame);
+router.get("/dashboard", requireAuth, dashboardView);
+router.post("/gamestats", requireAuth, fetchUserStatistics);
 
 module.exports = router;

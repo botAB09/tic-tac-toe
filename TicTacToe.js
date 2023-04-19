@@ -9,7 +9,6 @@ const express = require('express'),
   session = require('express-session'),
   app = express(),
   httpServer = createServer(app),
-  
   io = new Server(httpServer);
 
 //1 hour timer for each cookie , cookie gets deleted after 1 hour of inactivity
