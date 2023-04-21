@@ -7,6 +7,7 @@ const express = require("express"),
     multiplayerGame,
     pvpGame,
     fetchUserStatistics,
+    logoutUser,
   } = require("../controllers/dashboardController"),
   requireAuth = require("../middlewares/requireAuth");
 
@@ -18,5 +19,6 @@ router.get("/pvp", pvpGame);
 router.get("/multiplayer", requireAuth, multiplayerGame);
 router.get("/dashboard", requireAuth, dashboardView);
 router.post("/gamestats", requireAuth, fetchUserStatistics);
+router.post("/logout",logoutUser);
 
 module.exports = router;

@@ -8,8 +8,15 @@
     <title>Document</title>
   </head>
   <body class="doodle">
-    <h1>Welcome <%= username %></h1>
+    <div id="logout" style="position: fixed;top: 40px;right: 100px;">
+      <form action="/logout" method="post">
+        <div>
+          <button type="submit">Logout</button>
+        </div>
+      </form>
+    </div>
     <div class="userDashboard">
+      <h1>Welcome <%= username %></h1>
       <h1>Tic Tac Toe</h1>
       <form action="/pvp" method="get">
         <div>

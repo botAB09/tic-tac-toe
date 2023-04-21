@@ -1,5 +1,6 @@
 const path = require("path"),
   db = require("../utilities/db.utility");
+
 const dashboardView = async function (req, res) {
   res.render("user.dashboard.ejs", {
     username: req.session.username,
@@ -29,9 +30,16 @@ const fetchUserStatistics = async function (req, res) {
   }
 };
 
+const logoutUser = async function (req, res) {
+  req.session.destroy(() => {
+    res.redirect("/");
+  });
+};
+
 module.exports = {
   dashboardView,
   multiplayerGame,
   pvpGame,
   fetchUserStatistics,
+  logoutUser,
 };
