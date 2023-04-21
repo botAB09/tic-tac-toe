@@ -30,11 +30,21 @@
           </button>
         </div>
       </form>
-      <form action="/gamestats" method="post">
+      <!-- <form action="/gamestats" method="post">
         <div>
           <button type="submit" >Game Statistics</button>
         </div>
-      </form>
+      </form> -->
     </div>
+    <form style="position: fixed; right: 50px;top: 200px ;">
+      <fieldset>
+        <legend>Game Stats</legend>
+        <ul>
+          <li>Win  : <%= win %></li>
+          <li>Loss : <%= loss %></li>
+          <li>Draw : <%= draw %></li>
+        </ul>
+      </fieldset>
+    </form>
   </body>
 </html>
