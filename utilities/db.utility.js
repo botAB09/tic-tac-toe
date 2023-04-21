@@ -8,7 +8,7 @@ const { MongoClient } = require("mongodb"),
  *      -- connecting to the database
  *      -- searching User Statistics of each game played by the User
  *      -- adding / updating the username and statistics ( Win , Loss , Draw ) of the user .
- * //TODO authenticate database ; how to store passwords in the database ;
+ *
  */
 class DbUtil {
   //constructor method : creates a new instance of database

@@ -5,7 +5,7 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   DbUtil = require('./utilities/db.utility'),
   path = require('path'),
-  socketUtil = require('./utilities/websocket.utility'),
+  socket = require('./src/socket.logic'),
   session = require('express-session'),
   app = express(),
   httpServer = createServer(app),
@@ -41,7 +41,7 @@ io.use(function (socket, next) {
 app.use(sessionMiddleware);
 app.use(flash());
 
-io.on('connection', socketUtil.socketHandler);
+io.on('connection', socket.socketHandler);
 
 //router middleware
 app.use(routes);

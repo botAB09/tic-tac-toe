@@ -1,6 +1,4 @@
-const db = require("./db.utility");
-//TODO login and user selection ; to play
-
+const db = require("../utilities/db.utility");
 /**
  * websocket utility class :
  *      -- creates the game
@@ -22,30 +20,30 @@ const db = require("./db.utility");
  *                  -- if player makes a valid move , then socket event is emitted to display the move
  *
  */
-class SOCKETUTIL {
+class Socket {
   static opponent;
   static player = {};
   static createGame(socket) {
-    SOCKETUTIL.player[socket.id] = {
+    Socket.player[socket.id] = {
       symbol: "X",
-      opponent: SOCKETUTIL.opponent,
+      opponent: Socket.opponent,
       socket: socket,
       username: socket.request.session.username,
       turn: true,
     };
-    if (SOCKETUTIL.opponent) {
-      SOCKETUTIL.player[socket.id].symbol = "O";
-      SOCKETUTIL.player[socket.id].turn = false;
-      SOCKETUTIL.player[SOCKETUTIL.opponent].opponent = socket.id;
-      SOCKETUTIL.opponent = null;
+    if (Socket.opponent) {
+      Socket.player[socket.id].symbol = "O";
+      Socket.player[socket.id].turn = false;
+      Socket.player[Socket.opponent].opponent = socket.id;
+      Socket.opponent = null;
     } else {
-      SOCKETUTIL.opponent = socket.id;
+      Socket.opponent = socket.id;
     }
   }
 
   static getOpponent(socket) {
-    if (SOCKETUTIL.player[socket.id].opponent) {
-      return SOCKETUTIL.player[SOCKETUTIL.player[socket.id].opponent].socket;
+    if (Socket.player[socket.id].opponent) {
+      return Socket.player[Socket.player[socket.id].opponent].socket;
     }
     return false;
   }
@@ -91,85 +89,85 @@ class SOCKETUTIL {
   }
 
   static socketHandler(socket) {
-    SOCKETUTIL.createGame(socket);
-    if (SOCKETUTIL.getOpponent(socket)) {
+    Socket.createGame(socket);
+    if (Socket.getOpponent(socket)) {
       socket.emit("game.begin", {
-        symbol: SOCKETUTIL.player[socket.id].symbol,
-        turn: SOCKETUTIL.player[socket.id].turn,
+        symbol: Socket.player[socket.id].symbol,
+        turn: Socket.player[socket.id].turn,
       });
-      SOCKETUTIL.getOpponent(socket).emit("game.begin", {
-        symbol: SOCKETUTIL.player[SOCKETUTIL.getOpponent(socket).id].symbol,
-        turn: SOCKETUTIL.player[SOCKETUTIL.getOpponent(socket).id].turn,
+      Socket.getOpponent(socket).emit("game.begin", {
+        symbol: Socket.player[Socket.getOpponent(socket).id].symbol,
+        turn: Socket.player[Socket.getOpponent(socket).id].turn,
       });
     }
 
     socket.on("player.move", (player_postition) => {
-      if (SOCKETUTIL.player[socket.id].turn) {
-        SOCKETUTIL.player[socket.id].turn = false;
-        SOCKETUTIL.player[SOCKETUTIL.getOpponent(socket).id].turn = true;
+      if (Socket.player[socket.id].turn) {
+        Socket.player[socket.id].turn = false;
+        Socket.player[Socket.getOpponent(socket).id].turn = true;
         socket.emit("move.made", {
           position: player_postition,
-          turn: SOCKETUTIL.player[socket.id].turn,
-          symbol: SOCKETUTIL.player[socket.id].symbol,
+          turn: Socket.player[socket.id].turn,
+          symbol: Socket.player[socket.id].symbol,
         });
-        SOCKETUTIL.getOpponent(socket).emit("move.made", {
+        Socket.getOpponent(socket).emit("move.made", {
           position: player_postition,
-          turn: SOCKETUTIL.player[SOCKETUTIL.getOpponent(socket).id].turn,
-          symbol: SOCKETUTIL.player[socket.id].symbol,
+          turn: Socket.player[Socket.getOpponent(socket).id].turn,
+          symbol: Socket.player[socket.id].symbol,
         });
       }
     });
 
     socket.on("game.state.check", (gameBoard) => {
-      if (SOCKETUTIL.isWinner(gameBoard)) {
+      if (Socket.isWinner(gameBoard)) {
         socket.emit("game.state", {
           Win: true,
           Loss: false,
           Draw: false,
-          turn: SOCKETUTIL.player[socket.id].turn,
+          turn: Socket.player[socket.id].turn,
         });
-        SOCKETUTIL.getOpponent(socket).emit("game.state", {
+        Socket.getOpponent(socket).emit("game.state", {
           Win: false,
           Loss: true,
           Draw: false,
-          turn: SOCKETUTIL.player[SOCKETUTIL.getOpponent(socket).id].turn,
+          turn: Socket.player[Socket.getOpponent(socket).id].turn,
         });
-      } else if (SOCKETUTIL.isDraw(gameBoard)) {
+      } else if (Socket.isDraw(gameBoard)) {
         socket.emit("game.state", {
           Win: false,
           Loss: false,
           Draw: true,
-          turn: SOCKETUTIL.player[socket.id].turn,
+          turn: Socket.player[socket.id].turn,
         });
-        SOCKETUTIL.getOpponent(socket).emit("game.state", {
+        Socket.getOpponent(socket).emit("game.state", {
           Win: false,
           Loss: false,
           Draw: true,
-          turn: SOCKETUTIL.player[SOCKETUTIL.getOpponent(socket).id].turn,
+          turn: Socket.player[Socket.getOpponent(socket).id].turn,
         });
       } else {
         socket.emit("game.state", {
           Win: false,
           Loss: false,
           Draw: false,
-          turn: SOCKETUTIL.player[socket.id].turn,
+          turn: Socket.player[socket.id].turn,
         });
-        SOCKETUTIL.getOpponent(socket).emit("game.state", {
+        Socket.getOpponent(socket).emit("game.state", {
           Win: false,
           Loss: false,
           Draw: false,
-          turn: SOCKETUTIL.player[SOCKETUTIL.getOpponent(socket).id].turn,
+          turn: Socket.player[Socket.getOpponent(socket).id].turn,
         });
       }
     });
     socket.on("game.end", (gameState) => {
-      db.updateUserScore(SOCKETUTIL.player[socket.id], gameState);
+      db.updateUserScore(Socket.player[socket.id], gameState);
     });
     socket.on("disconnect", (disconn_data) => {
-      if (SOCKETUTIL.getOpponent(socket)) {
-        SOCKETUTIL.getOpponent(socket).emit("opponent.left");
+      if (Socket.getOpponent(socket)) {
+        Socket.getOpponent(socket).emit("opponent.left");
       }
     });
   }
 }
-module.exports = SOCKETUTIL;
+module.exports = Socket;
