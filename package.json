@@ -17,6 +17,7 @@
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "jsonwebtoken": "^9.0.0",
+    "req-flash": "^0.0.3",
     "socket.io": "^4.6.1"
   },
   "devDependencies": {

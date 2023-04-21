@@ -26,7 +26,12 @@
         Sign in
       </a>
     </p>
-    
+    <% if ( err_msg  ) { %>
+      <p><%= err_msg %></p>
+      <% } %>
+    <% if ( success_msg ) { %>
+      <p><%= success_msg %></p>
+    <% } %>
   </fieldset>
 </form>
 </body>

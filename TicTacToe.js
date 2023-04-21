@@ -9,7 +9,9 @@ const express = require('express'),
   session = require('express-session'),
   app = express(),
   httpServer = createServer(app),
-  io = new Server(httpServer);
+  io = new Server(httpServer),
+  flash = require('req-flash');
+  
 
 //1 hour timer for each cookie , cookie gets deleted after 1 hour of inactivity
 const cookieTimer = 60 * 60 * 1000;
@@ -37,6 +39,8 @@ io.use(function (socket, next) {
   sessionMiddleware(socket.request, socket.request.res || {}, next);
 });
 app.use(sessionMiddleware);
+app.use(flash());
+
 io.on('connection', socketUtil.socketHandler);
 
 //router middleware

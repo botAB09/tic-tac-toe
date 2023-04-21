@@ -6,9 +6,11 @@ const registerView = async function (req, res) {
     const existUser = await db.isExistingUser(req.body.username);
     if (existUser.length) {
       //user already exists , sign in
+      req.flash('error','User Already Exist ! Login');
       res.redirect("/");
     } else {
       await db.addUser(req.body);
+      req.flash('success','User Registered Successfully');
       res.redirect("/");
     }
   } catch (err) {
@@ -22,10 +24,9 @@ const loginView = async function (req, res) {
     req.session.username = req.body.username;
     res.redirect(`/dashboard`);
   } else {
-    //user does not exist
-    res.status(400).json({
-      message: "incorrect user or password",
-    });
+    //incorrect password or username ;
+    req.flash('error','Incorrect Username or Password');
+    res.redirect('/');
   }
 };
 
