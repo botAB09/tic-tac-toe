@@ -1,38 +1,38 @@
 const 
 socket = io();
 //render turn message to the connected clients
-function renderTurnMessage(turn){
+const renderTurnMessage = function (turn){
     if(!turn){
         $("#turn").text("Your Opponent's Turn");
-        $('.cell').attr('disabled', true); 
+        $('.cell').attr('disabled', true);
     }
     else{
         $("#turn").text("Your Turn");
-        $('.cell').removeAttr('disabled');     
+        $('.cell').removeAttr('disabled');
     }
-}
+};
 //emits socket event to server , when player makes a move
-function makeMove(){
+const makeMove = function (){
     if($(this).text().length){
         return ;
     }
-    socket.emit('player.move',this.id)    
-}
+    socket.emit('player.move',this.id);
+};
 
 //creates a board state object comprising of player symbol position on the board
-function getBoardState(){
+const getBoardState = function (){
     const boardState = {};
     $('.cell').each(function(index){
         boardState[$(this).attr('id')]= $(this).text();
     });
     return boardState;
-}
+};
 
 socket.on("connect", () => {
     console.log(socket.id);
 });
 socket.on("game.begin",playerData=>{
-    console.log(playerData)
+    console.log(playerData);
     $("#symbol").text(`Your Symbol : ${playerData.symbol}`);
     renderTurnMessage(playerData.turn);
 });
@@ -43,7 +43,7 @@ socket.on("move.made",data=>{
     if(!data.turn){
         socket.emit("game.state.check",gameBoard);
     }
-})
+});
 socket.on("game.state",gameState=>{
     console.log(gameState);
     if(gameState.Win){
@@ -57,19 +57,19 @@ socket.on("game.state",gameState=>{
     else if(gameState.Draw){
         $("#turn").text("Draw!... reload for New Game!");
         $('.cell').attr('disabled', true);
-        socket.emit("game.end","draw");       
+        socket.emit("game.end","draw");
     }
     else{
         renderTurnMessage(gameState.turn);
         return;
     }
     $('.cell').attr('disabled', true);
-})
+});
 socket.on("opponent.left",()=>{
     $("#turn").text("Your Opponent Left , reload for New Game!");
-    $('.cell').attr('disabled', true);  
-})
+    $('.cell').attr('disabled', true);
+});
 $(document).ready(function () {
-    $('.cell').attr('disabled', true);     
+    $('.cell').attr('disabled', true);
     $(".cell").on('click',makeMove);
 });

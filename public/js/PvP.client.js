@@ -5,7 +5,7 @@ const matches = ['XXX','OOO'];
 /**
  * first move is made by 'X'
  */
-function makeMove(){
+const makeMove = function (){
     $('#'+this.id).attr('disabled', true);
     $('#' + this.id).text(symbol);
     checkBoard(symbol);
@@ -20,8 +20,8 @@ function makeMove(){
  * 
  * @returns object containing state of the board (where 'X' and 'O' are located)
  */
-function getBoardState(){
-    $('.cell').each(function(index){
+const getBoardState = function (){
+    $('.cell').each(function(){
         obj[$(this).attr('id')]= $(this).text();
     });
     return obj;
@@ -31,7 +31,7 @@ function getBoardState(){
  * 
  * @param {char} symbol checks if symbol won 
  */
-function checkBoard(symbol){
+const checkBoard = function (symbol){
     const obj = getBoardState();
     /**
      * winning combinations 
@@ -53,8 +53,8 @@ function checkBoard(symbol){
         if(element===matches[0] || element===matches[1]){
             alert(`Winner is ${symbol}`);
             console.log(`Winner is ${symbol}`);
-            $('.cell').attr('disabled', true);     
-            return ;           
+            $('.cell').attr('disabled', true);
+            return ;
         };
     }
     /**
