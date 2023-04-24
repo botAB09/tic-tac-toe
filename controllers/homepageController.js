@@ -6,8 +6,11 @@ const path = require("path");
  */
 module.exports = async function (req, res) {
   if (req.session.username) {
-    res.redirect('/dashboard');
+    res.redirect("/dashboard");
   } else {
-    res.render('loginPage.ejs',{err_msg: req.flash('error'),success_msg:req.flash('success')});
+    res.render("loginPage.ejs", {
+      err_msg: req.flash("error"),
+      success_msg: req.flash("success"),
+    });
   }
 };

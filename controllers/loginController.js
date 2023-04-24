@@ -1,16 +1,16 @@
 const path = require("path"),
-  db = require("../utilities/db.utility");
+  db = require("../database/src/db.method");
 
 const registerView = async function (req, res) {
   try {
     const existUser = await db.isExistingUser(req.body.username);
     if (existUser.length) {
       //user already exists , sign in
-      req.flash('error','User Already Exist ! Login');
+      req.flash("error", "User Already Exist ! Login");
       res.redirect("/");
     } else {
       await db.addUser(req.body);
-      req.flash('success','User Registered Successfully');
+      req.flash("success", "User Registered Successfully");
       res.redirect("/");
     }
   } catch (err) {
@@ -25,8 +25,8 @@ const loginView = async function (req, res) {
     res.redirect(`/dashboard`);
   } else {
     //incorrect password or username ;
-    req.flash('error','Incorrect Username or Password');
-    res.redirect('/');
+    req.flash("error", "Incorrect Username or Password");
+    res.redirect("/");
   }
 };
 

@@ -1,11 +1,11 @@
 const path = require("path"),
-  db = require("../utilities/db.utility");
+  db = require("../database/src/db.method");
 
 const dashboardView = async function (req, res) {
   const userStats = await fetchUserStatistics(req.session.username);
-  res.render('user.dashboard.ejs', {
+  res.render("user.dashboard.ejs", {
     username: req.session.username,
-    win: userStats.Win ,
+    win: userStats.Win,
     loss: userStats.Loss,
     draw: userStats.Draw,
   });
