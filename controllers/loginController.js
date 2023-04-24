@@ -1,7 +1,7 @@
 const path = require("path"),
   db = require("../database/src/db.method");
 
-const registerView = async function (req, res) {
+const registerUser = async function (req, res) {
   try {
     const existUser = await db.isExistingUser(req.body.username);
     if (existUser.length) {
@@ -18,7 +18,7 @@ const registerView = async function (req, res) {
   }
 };
 
-const loginView = async function (req, res) {
+const loginAuth = async function (req, res) {
   const userExists = await db.checkUserAuth(req.body);
   if (userExists) {
     req.session.username = req.body.username;
@@ -31,6 +31,6 @@ const loginView = async function (req, res) {
 };
 
 module.exports = {
-  loginView,
-  registerView,
+  loginAuth,
+  registerUser,
 };
