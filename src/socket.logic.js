@@ -1,4 +1,5 @@
-const db = require("../database/src/db.method");
+const db = require("../database/src/db.method"),
+  socket_options = require("../constants/constants");
 /**
  * websocket utility class :
  *      -- creates the game
@@ -92,26 +93,26 @@ class Socket {
   static socketHandler(socket) {
     Socket.createGame(socket);
     if (Socket.getOpponent(socket)) {
-      socket.emit("game.begin", {
+      socket.emit(socket_options.begin, {
         symbol: Socket.player[socket.id].symbol,
         turn: Socket.player[socket.id].turn,
       });
-      Socket.getOpponent(socket).emit("game.begin", {
+      Socket.getOpponent(socket).emit(socket_options.begin, {
         symbol: Socket.player[Socket.getOpponent(socket).id].symbol,
         turn: Socket.player[Socket.getOpponent(socket).id].turn,
       });
     }
 
-    socket.on("player.move", (player_postition) => {
+    socket.on(socket_options.move, (player_postition) => {
       if (Socket.player[socket.id].turn) {
         Socket.player[socket.id].turn = false;
         Socket.player[Socket.getOpponent(socket).id].turn = true;
-        socket.emit("move.made", {
+        socket.emit(socket_options.move_made, {
           position: player_postition,
           turn: Socket.player[socket.id].turn,
           symbol: Socket.player[socket.id].symbol,
         });
-        Socket.getOpponent(socket).emit("move.made", {
+        Socket.getOpponent(socket).emit(socket_options.move_made, {
           position: player_postition,
           turn: Socket.player[Socket.getOpponent(socket).id].turn,
           symbol: Socket.player[socket.id].symbol,
@@ -119,41 +120,41 @@ class Socket {
       }
     });
 
-    socket.on("game.state.check", (gameBoard) => {
+    socket.on(socket_options.state_check, (gameBoard) => {
       if (Socket.isWinner(gameBoard)) {
-        socket.emit('game.state', {
+        socket.emit(socket_options.state, {
           Win: true,
           Loss: false,
           Draw: false,
           turn: Socket.player[socket.id].turn,
         });
-        Socket.getOpponent(socket).emit('game.state', {
+        Socket.getOpponent(socket).emit(socket_options.state, {
           Win: false,
           Loss: true,
           Draw: false,
           turn: Socket.player[Socket.getOpponent(socket).id].turn,
         });
       } else if (Socket.isDraw(gameBoard)) {
-        socket.emit('game.state', {
+        socket.emit(socket_options.state, {
           Win: false,
           Loss: false,
           Draw: true,
           turn: Socket.player[socket.id].turn,
         });
-        Socket.getOpponent(socket).emit('game.state', {
+        Socket.getOpponent(socket).emit(socket_options.state, {
           Win: false,
           Loss: false,
           Draw: true,
           turn: Socket.player[Socket.getOpponent(socket).id].turn,
         });
       } else {
-        socket.emit('game.state', {
+        socket.emit(socket_options.state, {
           Win: false,
           Loss: false,
           Draw: false,
           turn: Socket.player[socket.id].turn,
         });
-        Socket.getOpponent(socket).emit('game.state', {
+        Socket.getOpponent(socket).emit(socket_options.state, {
           Win: false,
           Loss: false,
           Draw: false,
@@ -161,12 +162,12 @@ class Socket {
         });
       }
     });
-    socket.on('game.end', (gameState) => {
+    socket.on(socket_options.end, (gameState) => {
       db.updateUserScore(Socket.player[socket.id], gameState);
     });
-    socket.on('disconnect', () => {
+    socket.on(socket_options.disconnect, () => {
       if (Socket.getOpponent(socket)) {
-        Socket.getOpponent(socket).emit('opponent.left');
+        Socket.getOpponent(socket).emit(socket_options.opponent_left);
       }
     });
   }
