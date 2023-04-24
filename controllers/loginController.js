@@ -1,5 +1,4 @@
-const path = require("path"),
-  db = require("../database/src/db.method");
+const db = require("../database/src/db.method");
 
 const registerUser = async function (req, res) {
   try {

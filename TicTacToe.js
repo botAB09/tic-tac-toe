@@ -11,7 +11,6 @@ const express = require('express'),
   httpServer = createServer(app),
   io = new Server(httpServer),
   flash = require('req-flash');
-  
 
 //1 hour timer for each cookie , cookie gets deleted after 1 hour of inactivity
 const cookieTimer = 60 * 60 * 1000;

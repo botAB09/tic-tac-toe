@@ -1,5 +1,4 @@
-const path = require("path"),
-  db = require("../database/src/db.method");
+const db = require("../database/src/db.method");
 
 const dashboardView = async function (req, res) {
   const userStats = await fetchUserStatistics(req.session.username);

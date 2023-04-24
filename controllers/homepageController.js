@@ -1,5 +1,3 @@
-const path = require("path");
-
 /**
  *
  * @param {object}  res retrieves Homepage file and returns the Home Page file to the client
