@@ -3,7 +3,7 @@ const express = require('express'),
   { Server } = require('socket.io'),
   routes = require('./routes/routes'),
   bodyParser = require('body-parser'),
-  DbUtil = require('./utilities/db.utility'),
+  db = require('./database/src/db.method'),
   path = require('path'),
   socket = require('./src/socket.logic'),
   session = require('express-session'),
@@ -50,7 +50,7 @@ app.use(routes);
 httpServer.listen(process.env.port, async () => {
   console.log(`Listening on port ${process.env.port}`);
   try {
-    await DbUtil.connect();
+    await db.connect();
     console.log('Connected to the Tic Tac Toe Database');
   } catch (err) {
     console.log('Cannot Connect to the Tic Tac Toe Database', err);

@@ -1,4 +1,4 @@
-const db = require("../utilities/db.utility");
+const db = require("../database/src/db.method");
 /**
  * websocket utility class :
  *      -- creates the game
@@ -25,7 +25,7 @@ class Socket {
   static player = {};
   static createGame(socket) {
     Socket.player[socket.id] = {
-      symbol: "X",
+      symbol: 'X',
       opponent: Socket.opponent,
       socket: socket,
       username: socket.request.session.username,
@@ -33,7 +33,7 @@ class Socket {
     };
     //TODO before creating a game , if same username players exist in the player object ; delete the repeated players
     if (Socket.opponent) {
-      Socket.player[socket.id].symbol = "O";
+      Socket.player[socket.id].symbol = 'O';
       Socket.player[socket.id].turn = false;
       Socket.player[Socket.opponent].opponent = socket.id;
       Socket.opponent = null;
@@ -121,39 +121,39 @@ class Socket {
 
     socket.on("game.state.check", (gameBoard) => {
       if (Socket.isWinner(gameBoard)) {
-        socket.emit("game.state", {
+        socket.emit('game.state', {
           Win: true,
           Loss: false,
           Draw: false,
           turn: Socket.player[socket.id].turn,
         });
-        Socket.getOpponent(socket).emit("game.state", {
+        Socket.getOpponent(socket).emit('game.state', {
           Win: false,
           Loss: true,
           Draw: false,
           turn: Socket.player[Socket.getOpponent(socket).id].turn,
         });
       } else if (Socket.isDraw(gameBoard)) {
-        socket.emit("game.state", {
+        socket.emit('game.state', {
           Win: false,
           Loss: false,
           Draw: true,
           turn: Socket.player[socket.id].turn,
         });
-        Socket.getOpponent(socket).emit("game.state", {
+        Socket.getOpponent(socket).emit('game.state', {
           Win: false,
           Loss: false,
           Draw: true,
           turn: Socket.player[Socket.getOpponent(socket).id].turn,
         });
       } else {
-        socket.emit("game.state", {
+        socket.emit('game.state', {
           Win: false,
           Loss: false,
           Draw: false,
           turn: Socket.player[socket.id].turn,
         });
-        Socket.getOpponent(socket).emit("game.state", {
+        Socket.getOpponent(socket).emit('game.state', {
           Win: false,
           Loss: false,
           Draw: false,
@@ -161,12 +161,12 @@ class Socket {
         });
       }
     });
-    socket.on("game.end", (gameState) => {
+    socket.on('game.end', (gameState) => {
       db.updateUserScore(Socket.player[socket.id], gameState);
     });
-    socket.on("disconnect", (disconn_data) => {
+    socket.on('disconnect', () => {
       if (Socket.getOpponent(socket)) {
-        Socket.getOpponent(socket).emit("opponent.left");
+        Socket.getOpponent(socket).emit('opponent.left');
       }
     });
   }
