@@ -31,6 +31,7 @@ class Socket {
       username: socket.request.session.username,
       turn: true,
     };
+    //TODO before creating a game , if same username players exist in the player object ; delete the repeated players
     if (Socket.opponent) {
       Socket.player[socket.id].symbol = "O";
       Socket.player[socket.id].turn = false;
