@@ -12,10 +12,12 @@ const express = require("express"),
   } = require("../controllers/dashboardController"),
   requireAuth = require("../middlewares/requireAuth");
 
+//routes for login page and authentication
 router.get("/", home);
 router.post("/signup", registerUser);
 router.post("/login", loginAuth);
 
+//routes for dashboard , dashboard functionality 
 router.get("/dashboard", requireAuth,cacheControl, dashboardView);
 router.get("/pvp", pvpGame);
 router.get("/multiplayer", requireAuth, multiplayerGame);

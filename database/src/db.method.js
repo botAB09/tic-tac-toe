@@ -20,7 +20,10 @@ class DbUser extends DbUtil {
       throw new Error('Error Occured in getUSerStats function db.js', err);
     }
   }
-
+/**
+ * registers a user to the databse , encrypts the password of the user 
+ * @param {object} userData contains {username,email,password}
+ */
   async addUser(userData) {
     //check if user already exists ..
     const hashedpassword = await new Promise((resolve, reject) => {
@@ -43,7 +46,11 @@ class DbUser extends DbUtil {
       Draw: 0,
     });
   }
-
+/**
+ * checks if the user exists in the database
+ * @param {string} username 
+ * @returns boolean true if user exists ; else false if user does not exists
+ */
   async isExistingUser(username) {
     return this.collection
       .find({
@@ -52,7 +59,11 @@ class DbUser extends DbUtil {
       .limit(1)
       .toArray();
   }
-
+/**
+ * checks for user authentication in the databse
+ * @param {object} userData {username,password}
+ * @returns true if the credentials are correct else false 
+ */
   async checkUserAuth(userData) {
     try {
       const existingUser = await this.isExistingUser(userData.username);

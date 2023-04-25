@@ -1,3 +1,6 @@
+/**
+ * socket options 
+ */
 module.exports = Object.freeze({
     begin : "game.begin",
     move : "player.move",

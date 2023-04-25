@@ -24,17 +24,22 @@ const db = require("../database/src/db.method"),
 class Socket {
   static opponent;
   static player = {};
+  /**
+   * creates the game by assigning opponent , symbol and username to each socket connected
+   * stores the player data in key:value pair
+   * each user is stored in "player" object with key as socket.id
+   * @param {object} socket
+   */
   static createGame(socket) {
     Socket.player[socket.id] = {
-      symbol: 'X',
+      symbol: "X",
       opponent: Socket.opponent,
       socket: socket,
       username: socket.request.session.username,
       turn: true,
     };
-    //TODO before creating a game , if same username players exist in the player object ; delete the repeated players
     if (Socket.opponent) {
-      Socket.player[socket.id].symbol = 'O';
+      Socket.player[socket.id].symbol = "O";
       Socket.player[socket.id].turn = false;
       Socket.player[Socket.opponent].opponent = socket.id;
       Socket.opponent = null;
@@ -43,6 +48,11 @@ class Socket {
     }
   }
 
+  /**
+   * check if an opponent exist for the respective socket.id
+   * @param {object} socket 
+   * @returns the opponent socket id 
+   */
   static getOpponent(socket) {
     if (Socket.player[socket.id].opponent) {
       return Socket.player[Socket.player[socket.id].opponent].socket;
@@ -89,7 +99,10 @@ class Socket {
     }
     return true;
   }
-
+  /**
+   * main driver function of the socket logic
+   * @param {object} socket 
+   */
   static socketHandler(socket) {
     Socket.createGame(socket);
     if (Socket.getOpponent(socket)) {

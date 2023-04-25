@@ -2,9 +2,9 @@ const { MongoClient } = require("mongodb"),
   createUserSchema = require("../database/schema/db.schema");
 
 /**
- *  db utility class usage ;
- *      -- connects to the database
- *
+ *  db utility class 
+ *  initializes a new MongoClient and ,
+ *  connects to the database
  */
 class DbUtil {
   //constructor method : creates a new instance of database

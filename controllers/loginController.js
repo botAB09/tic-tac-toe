@@ -1,5 +1,9 @@
 const db = require("../database/src/db.method");
-
+/**
+ * registers user to the database ; if the user already exists then redirect to the login Page view else creates a new user 
+ * @param {object} req 
+ * @param {object} res 
+ */
 const registerUser = async function (req, res) {
   try {
     const existUser = await db.isExistingUser(req.body.username);
@@ -17,6 +21,11 @@ const registerUser = async function (req, res) {
   }
 };
 
+/**
+ * checks for user authentication {username , password} ; if credentials are correct then redirects to dashboard 
+ * @param {object} req 
+ * @param {object} res 
+ */
 const loginAuth = async function (req, res) {
   const userExists = await db.checkUserAuth(req.body);
   if (userExists) {
