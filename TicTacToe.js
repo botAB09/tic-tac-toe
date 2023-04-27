@@ -16,7 +16,7 @@ const express = require('express'),
 const cookieTimer = 60 * 60 * 1000;
 const sessionMiddleware = session({
   name: `TicTacToe`,
-  secret: 'some-secret-example',
+  secret: 'iasahphswm',
   resave: false,
   saveUninitialized: false,
   cookie: {
