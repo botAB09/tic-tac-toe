@@ -31,6 +31,11 @@ class Socket {
    * @param {object} socket
    */
   static createGame(socket) {
+    if(Socket.opponent && socket.request.session.username === Socket.player[Socket.opponent].username){
+      const delOppKey = Socket.opponent;
+      delete Socket.player[delOppKey];
+      Socket.opponent = null;
+    }
     Socket.player[socket.id] = {
       symbol: "X",
       opponent: Socket.opponent,
