@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/doodle/doodle.css">
+    <title>Document</title>
+</head>
+<body class="doodle">
+<form action="/login" method="post">
+  <fieldset>
+    <legend>Log In</legend>
+    <p>
+      <label for="username">Username</label><br/>
+      <input type="text" name="username" required="">
+    </p>
+    
+    <p>
+      <label for="password">Password</label></br>
+      <input type="password" name="password" required="">
+    </p>
+    <p>
+      <button type="submit" value="submit" >Login</button>
+      <a style="margin-left: 30vw;" href="signup.html">
+        Sign in
+      </a>
+    </p>
+    <% if ( err_msg  ) { %>
+      <p><%= err_msg %></p>
+      <% } %>
+    <% if ( success_msg ) { %>
+      <p><%= success_msg %></p>
+    <% } %>
+  </fieldset>
+</form>
+</body>
+</html>

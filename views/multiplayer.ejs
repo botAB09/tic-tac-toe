@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./css/game.css" />
+    <link rel="stylesheet" type="text/css" href="./css/doodle/doodle.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/multiplayer.tic-tac-toe.js"></script>
+    <style>
+        body {
+          font-size: 1em;
+        }
+      </style>
+    <title>Tic Tac Toe</title>
+</head>
+<body class="doodle">
+    <div id="gameboard">
+        <h2 id="turn">waiting for opponent .... </h2>
+        <div id="board">
+            <button id="cell1" class="cell"></button>
+            <button id="cell2" class="cell"></button>
+            <button id="cell3" class="cell"></button>
+            <button id="cell4" class="cell"></button>
+            <button id="cell5" class="cell"></button>
+            <button id="cell6" class="cell"></button>
+            <button id="cell7" class="cell"></button>
+            <button id="cell8" class="cell"></button>
+            <button id="cell9" class="cell"></button>
+        </div>
+        <h3 id="symbol"></h3>
+    </div>
+</body>
+</html>
